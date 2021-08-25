@@ -16,7 +16,7 @@
 				top: 0;
 				bottom: 0;
 				right: 0;
-				width: 200px;
+				width: 400px;
 				height: 200px;
 			}
 			#canvas {
@@ -27,7 +27,7 @@
 				z-index: 999;
 			}
 			.txt {
-				width: 200px;
+				width: 400px;
 				height: 200px;
 				position: absolute;
 				left: 0;
@@ -44,7 +44,7 @@
 	<body>
 		<div id="container">
 			<div class="txt">谢谢惠顾</div>
-			<canvas id="canvas" width="200" height="200"></canvas>
+			<canvas id="canvas" width="400" height="200"></canvas>
 		</div>
 
 		<script>
@@ -60,7 +60,7 @@
       }
       tDom.innerText = str
       ctx.fillStyle = '#ccc'
-			ctx.fillRect(0, 0, 200, 200)
+			ctx.fillRect(0, 0, 400, 200)
 			function remove(e) {
 				let [x, y] = [e.clientX, e.clientY]
 
