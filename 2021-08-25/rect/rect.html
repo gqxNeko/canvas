@@ -52,11 +52,13 @@
 			var ctx = myCanvas.getContext('2d')
 			var num = Math.random() - 0.5
       var tDom = document.getElementsByClassName('txt')[0]
-      if(num > 0){
-        tDom.innerText = '恭喜中奖，您将获得BUG一份，请注意查收'
+      var str = ''
+      if(num >= 0){
+        str = '恭喜中奖，您将获得BUG一份，请注意查收'
       }else{
-        tDom.innerText = '谢谢惠顾'
+        str = '谢谢惠顾'
       }
+      tDom.innerText = str
       ctx.fillStyle = '#ccc'
 			ctx.fillRect(0, 0, 200, 200)
 			function remove(e) {
@@ -68,7 +70,8 @@
 				ctx.clearRect(x, y, 20, 20)
 			}
 			var flag = false
-			myCanvas.onmousemove = function (e) {
+			//PC端
+      myCanvas.onmousemove = function (e) {
 				if (flag) {
 					remove(e)
 				}
@@ -79,7 +82,8 @@
 			myCanvas.onmouseup = function () {
 				flag = false
 			}
-			myCanvas.ontouchmove = function (e) {
+			//移动端
+      myCanvas.ontouchmove = function (e) {
 				if (flag) {
 					remove(e)
 				}
