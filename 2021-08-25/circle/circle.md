@@ -4,5 +4,5 @@
   * 弧形：`arc(x,y,r,beginArc,endArc,false)`
 * 准备工作
   * `beginPath()`
-  * `strokeStyle = 'orange'`
+  * `fill()`
   * `stroke()`

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>直线</title>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    ctx.lineWidth = 5
+    //线条颜色
+    ctx.strokeStyle = '#008c8c'
+    ctx.beginPath()
+    ctx.moveTo(100,200)
+    ctx.lineTo(100,260)
+    ctx.lineTo(160,260)
+    ctx.lineTo(160,200)
+    ctx.lineTo(100,200)
+    ctx.closePath()
+    ctx.stroke()
+  </script>
+</body>
+</html>

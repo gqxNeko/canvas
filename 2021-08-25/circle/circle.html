@@ -8,13 +8,17 @@
 	</head>
 	<body>
 		<canvas id="canvas" width="400" height="400"></canvas>
-		<script>
+		<canvas id="demo-canvas" width="400" height="400"></canvas>
+		
+    <script>
 			let dom = document.getElementById('canvas')
 			let ctx = dom.getContext('2d')
+      ctx.fillStyle = 'red'
 			ctx.beginPath()
-			ctx.stokeStyle = 'orange'
       ctx.arc(200,200,100,0,2 * Math.PI,false)
+      ctx.fill()
       ctx.stroke()
+
 		</script>
 	</body>
 </html>
