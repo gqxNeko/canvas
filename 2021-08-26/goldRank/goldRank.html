@@ -14,12 +14,13 @@
 			// 绘制坐标轴
 			function drawAxis(ctx) {
 				// y轴
+				ctx.save()
 				ctx.beginPath()
 				ctx.moveTo(100, 500)
 				ctx.lineTo(100, 100)
 				ctx.stroke()
 				ctx.closePath()
-
+				ctx.restore()
 				// y轴三角
 				// 左三角
 				// ctx.beginPath()
@@ -68,25 +69,26 @@
 				labelArr.forEach((i, index) => {
 					ctx.textAlign = 'center'
 					ctx.fillText(i, ((800 - 100) / 6) * (index + 1) + 100, 530)
+					ctx.save()
 					ctx.beginPath()
 					ctx.moveTo(((800 - 100) / 6) * (index + 1) + 100, 500)
 					ctx.lineTo(((800 - 100) / 6) * (index + 1) + 100, 510)
 					ctx.stroke()
 					ctx.closePath()
+					ctx.restore()
 				})
 			}
-			function drawYAxisLabel(ctx, valueArr) {
-				valueArr.forEach((i, index) => {
+			function drawYAxisLabel(ctx, len) {
+				for (let index = 0; index < len; index++) {
 					ctx.textAlign = 'center'
 					ctx.font = '14px Apple'
 					let beginY = 500 - ((500 - 100) / 5) * index
 					ctx.fillText(16 + (index * (40 - 16)) / 4, 90, beginY + 5)
-				})
+				}
 			}
 			// 在这里添加动画效果
 			// 矩形绘制顺序是从左至右
 			function drawRect(ctx, valueArr) {
-				// 宽高未知
 				valueArr.forEach((i, index) => {
 					let beginX = ((800 - 100) / 6) * (index + 1) + 100 - 40
 					let beginY = 500 - ((500 - 180) / (40 - 16)) * (i - 16)
@@ -105,6 +107,7 @@
 							ctx.fillStyle = '#00a1ff'
 							// 矩形过渡效果不太好
 							// ctx.fillRect(beginX, beginY, width, beginHeight)
+							ctx.save()
 							ctx.beginPath()
 							ctx.moveTo(beginX, 500)
 							ctx.lineTo(beginX + 80, 500)
@@ -113,16 +116,17 @@
 							ctx.lineTo(beginX, 500)
 							ctx.strokeStyle = '#00a1ff'
 							ctx.fill()
-							// ctx.stroke()
-							// ctx.closePath()
+							ctx.stroke()
+							ctx.closePath()
+							ctx.restore()
 						} else {
 							timeClear = '' && clearInterval(timeClear)
 						}
 					}, speed)
-					ctx.stroke()
 
 					// 绘制引导线，还可以优化
 					ctx.strokeStyle = 'rgba(0,0,0,0.1)'
+					ctx.save()
 					ctx.beginPath()
 					ctx.lineWidth = 1
 					// ctx.setLineDash([5])
@@ -131,6 +135,7 @@
 					ctx.lineTo(800, 500 - ((500 - 100) / 5) * index)
 					ctx.stroke()
 					ctx.closePath()
+					ctx.restore()
 
 					// 添加🏅🌲放在柱状图上方
 					ctx.font = '16px Apple'
@@ -164,7 +169,7 @@
 					valueArr.push(i.gold)
 				})
 				drawXAxisLabel(ctx, labelArr)
-				drawYAxisLabel(ctx, valueArr)
+				drawYAxisLabel(ctx, valueArr.length)
 				drawRect(ctx, valueArr)
 			}
 			// 金牌接口
