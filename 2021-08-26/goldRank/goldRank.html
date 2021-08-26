@@ -11,7 +11,7 @@
 		<script>
 			const myCanvas = document.getElementById('rank')
 			const ctx = myCanvas.getContext('2d')
-			//绘制坐标轴
+			// 绘制坐标轴
 			function drawAxis(ctx) {
 				// y轴
 				ctx.beginPath()
@@ -76,6 +76,7 @@
 				})
 			}
 			// 在这里添加动画效果
+			// 矩形绘制顺序是从左至右
 			function drawRect(ctx, valueArr) {
 				// 宽高未知
 				valueArr.forEach((i, index) => {
@@ -113,9 +114,10 @@
 					ctx.fillStyle = '#008c8c'
 					ctx.textAlign = 'center'
 					ctx.textBaseLine = 'middle'
-					ctx.fillText(i, beginX + 40, beginY - 10)
+					ctx.fillText(i, beginX + 40, beginY - 5)
 					ctx.stroke()
-					//绘制引导线
+
+					// 绘制引导线，还可以优化
 					ctx.strokeStyle = '#00a1ff'
 					ctx.beginPath()
 					ctx.lineWidth = 1
@@ -125,8 +127,7 @@
 					ctx.stroke()
 				})
 			}
-
-			//绘制title
+			// 绘制title
 			function drawTitle(ctx) {
 				ctx.font = '20px Apple'
 				ctx.textAlign = 'center'
