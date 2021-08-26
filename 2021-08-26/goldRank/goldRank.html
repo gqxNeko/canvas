@@ -51,7 +51,6 @@
 				// ctx.stroke()
 				// ctx.closePath()
 
-
 				// // 右三角
 				// ctx.beginPath()
 				// ctx.moveTo(800, 500)
@@ -60,9 +59,9 @@
 				// ctx.closePath()
 
 				//画坐标原点
-				ctx.font = '14px Apple'
-				ctx.textAlign = 'center'
-				ctx.fillText('15', 90, 510)
+				// ctx.font = '14px Apple'
+				// ctx.textAlign = 'center'
+				// ctx.fillText('15', 90, 510)
 			}
 			drawAxis(ctx)
 			function drawXAxisLabel(ctx, labelArr) {
@@ -74,15 +73,14 @@
 					ctx.lineTo(((800 - 100) / 6) * (index + 1) + 100, 510)
 					ctx.stroke()
 					ctx.closePath()
-
 				})
 			}
 			function drawYAxisLabel(ctx, valueArr) {
 				valueArr.forEach((i, index) => {
 					ctx.textAlign = 'center'
 					ctx.font = '14px Apple'
-					let beginY = 500 - ((500 - 100 - 50) / (39 - 15)) * (i - 15)
-					ctx.fillText(i, 90, beginY + 5)
+					let beginY = 500 - ((500 - 100) / 5) * index
+					ctx.fillText(16 + (index * (40 - 16)) / 4, 90, beginY + 5)
 				})
 			}
 			// 在这里添加动画效果
@@ -91,9 +89,9 @@
 				// 宽高未知
 				valueArr.forEach((i, index) => {
 					let beginX = ((800 - 100) / 6) * (index + 1) + 100 - 40
-					let beginY = 500 - ((500 - 100 - 50) / (39 - 15)) * (i - 15)
+					let beginY = 500 - ((500 - 180) / (40 - 16)) * (i - 16)
 					const width = 80
-					const height = ((500 - 100 - 50) / (39 - 15)) * (i - 15)
+					const height = ((500 - 180) / (40 - 16)) * (i - 16)
 					let speed = 10
 					let beginHeight = 500
 					// 过渡  从下往上进行绘制，使用的直线绘制方式
@@ -123,15 +121,14 @@
 					}, speed)
 					ctx.stroke()
 
-					
-
 					// 绘制引导线，还可以优化
-					ctx.strokeStyle = '#ccc'
+					ctx.strokeStyle = 'rgba(0,0,0,0.1)'
 					ctx.beginPath()
 					ctx.lineWidth = 1
 					// ctx.setLineDash([5])
-					ctx.moveTo(100, beginY + 1)
-					ctx.lineTo(800, beginY + 1)
+					// 直线
+					ctx.moveTo(100, 500 - ((500 - 100) / 5) * index)
+					ctx.lineTo(800, 500 - ((500 - 100) / 5) * index)
 					ctx.stroke()
 					ctx.closePath()
 
@@ -142,7 +139,6 @@
 					ctx.textBaseLine = 'middle'
 					ctx.fillText(i, beginX + 40, beginY - 5)
 					ctx.stroke()
-
 				})
 			}
 			// 绘制title
@@ -152,7 +148,7 @@
 				ctx.fillText('东京奥运会金牌Top5', 450, 50)
 			}
 			drawTitle(ctx)
-			
+
 			const xhr = new XMLHttpRequest()
 			xhr.open('get', 'https://mracat.com/tools/2020东京奥运会/')
 			xhr.send(null)
