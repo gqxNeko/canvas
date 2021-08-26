@@ -2,6 +2,9 @@
 * API
   * 圆：`arc(x,y,r,0,2*Math.PI,false)`，false表示顺时针，true表示逆时针
   * 弧形：`arc(x,y,r,beginArc,endArc,false)`
+* 全局属性
+  * `globalCompositeOperation`：可以设置两个canvas的叠加效果
+    * 刮刮乐用的是`destination-out`
 * 准备工作
   * `beginPath()`
   * `fill()`

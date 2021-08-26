@@ -35,9 +35,9 @@
 				line-height: 1.5;
 				background: #fff;
 				z-index: -1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 		</style>
 	</head>
@@ -51,15 +51,15 @@
 			var myCanvas = document.getElementsByTagName('canvas')[0]
 			var ctx = myCanvas.getContext('2d')
 			var num = Math.random() - 0.5
-      var tDom = document.getElementsByClassName('txt')[0]
-      var str = ''
-      if(num >= 0){
-        str = '恭喜中奖，您将获得BUG一份，请注意查收'
-      }else{
-        str = '谢谢惠顾'
-      }
-      tDom.innerText = str
-      ctx.fillStyle = '#ccc'
+			var tDom = document.getElementsByClassName('txt')[0]
+			var str = ''
+			if (num >= 0) {
+				str = '恭喜中奖，您将获得BUG一份，请注意查收'
+			} else {
+				str = '谢谢惠顾'
+			}
+			tDom.innerText = str
+			ctx.fillStyle = '#ccc'
 			ctx.fillRect(0, 0, 400, 200)
 			function remove(e) {
 				let [x, y] = [e.clientX, e.clientY]
@@ -67,11 +67,18 @@
 				if (e.changedTouches) {
 					;[x, y] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
 				}
-				ctx.clearRect(x, y, 20, 20)
+				// 圆形区域
+				ctx.globalCompositeOperation = 'destination-out'
+				ctx.beginPath()
+				ctx.arc(x, y, 25, 0, Math.PI * 2, false)
+				ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+				ctx.fill()
+				// 矩形
+				// ctx.clearRect(x, y, 20, 20)
 			}
 			var flag = false
 			//PC端
-      myCanvas.onmousemove = function (e) {
+			myCanvas.onmousemove = function (e) {
 				if (flag) {
 					remove(e)
 				}
@@ -83,7 +90,7 @@
 				flag = false
 			}
 			//移动端
-      myCanvas.ontouchmove = function (e) {
+			myCanvas.ontouchmove = function (e) {
 				if (flag) {
 					remove(e)
 				}
