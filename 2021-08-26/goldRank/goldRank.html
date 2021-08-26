@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Canvas绘制2021届冬季奥运会金牌数</title>
+	</head>
+	<body>
+		<canvas id="rank" width="800" height="600"></canvas>
+		<script>
+			const myCanvas = document.getElementById('rank')
+			const ctx = myCanvas.getContext('2d')
+			//绘制坐标轴
+			function drawAxis(ctx) {
+				// y轴
+				ctx.beginPath()
+				ctx.moveTo(100, 500)
+				ctx.lineTo(100, 100)
+				ctx.closePath()
+				ctx.stroke()
+				// y轴三角
+				// 左三角
+				ctx.beginPath()
+				ctx.moveTo(100, 100)
+				ctx.lineTo(90, 120)
+				ctx.closePath()
+				ctx.stroke()
+				// 右三角
+				ctx.beginPath()
+				ctx.moveTo(100, 100)
+				ctx.lineTo(110, 120)
+				ctx.closePath()
+				ctx.stroke()
+				// x轴
+				ctx.beginPath()
+				ctx.moveTo(100, 500)
+				ctx.lineTo(800, 500)
+				ctx.closePath()
+				ctx.stroke()
+				// x轴三角
+				// 左三角
+				ctx.beginPath()
+				ctx.moveTo(800, 500)
+				ctx.lineTo(780, 490)
+				ctx.closePath()
+				ctx.stroke()
+				// 右三角
+				ctx.beginPath()
+				ctx.moveTo(800, 500)
+				ctx.lineTo(780, 510)
+				ctx.closePath()
+				ctx.stroke()
+				//画坐标原点
+				ctx.font = '14px Apple'
+				ctx.textAlign = 'center'
+				ctx.fillText('15', 90, 510)
+			}
+			drawAxis(ctx)
+			function drawXAxisLabel(ctx, labelArr) {
+				labelArr.forEach((i, index) => {
+					ctx.textAlign = 'center'
+					ctx.fillText(i, ((800 - 100) / 6) * (index + 1) + 100, 530)
+					ctx.beginPath()
+					ctx.moveTo(((800 - 100) / 6) * (index + 1) + 100, 500)
+					ctx.lineTo(((800 - 100) / 6) * (index + 1) + 100, 510)
+					ctx.stroke()
+				})
+			}
+			function drawYAxisLabel(ctx, valueArr) {
+				valueArr.forEach((i, index) => {
+					ctx.textAlign = 'center'
+					ctx.font = '14px Apple'
+					let beginY = 500 - ((500 - 100 - 50) / (39 - 15)) * (i - 15)
+					ctx.fillText(i, 90, beginY + 5)
+				})
+			}
+			// 在这里添加动画效果
+			function drawRect(ctx, valueArr) {
+				// 宽高未知
+				valueArr.forEach((i, index) => {
+					let beginX = ((800 - 100) / 6) * (index + 1) + 100 - 40
+					let beginY = 500 - ((500 - 100 - 50) / (39 - 15)) * (i - 15)
+					const width = 80
+					const height = ((500 - 100 - 50) / (39 - 15)) * (i - 15)
+					let speed = 10
+					let beginHeight = 500
+					// 过渡  从下往上进行绘制
+					let timeClear = ''
+					timeClear = setInterval(() => {
+						if (beginHeight > beginY) {
+							beginHeight -= speed
+							if (beginHeight <= beginY) {
+								beginHeight = beginY
+							}
+							ctx.fillStyle = '#00a1ff'
+							// 矩形过渡效果不太好
+							// ctx.fillRect(beginX, beginY, width, beginHeight)
+							ctx.beginPath()
+							ctx.moveTo(beginX, 500)
+							ctx.lineTo(beginX + 80, 500)
+							ctx.lineTo(beginX + 80, beginHeight)
+							ctx.lineTo(beginX, beginHeight)
+							ctx.lineTo(beginX, 500)
+							ctx.strokeStyle = '#00a1ff'
+							ctx.fill()
+						} else {
+							timeClear = '' && clearInterval(timeClear)
+						}
+					}, speed)
+					ctx.stroke()
+					ctx.font = '16px Apple'
+					ctx.fillStyle = '#008c8c'
+					ctx.textAlign = 'center'
+					ctx.textBaseLine = 'middle'
+					ctx.fillText(i, beginX + 40, beginY - 10)
+					ctx.stroke()
+					//绘制引导线
+					ctx.strokeStyle = '#00a1ff'
+					ctx.beginPath()
+					ctx.lineWidth = 1
+					ctx.setLineDash([5])
+					ctx.moveTo(100, beginY + 1)
+					ctx.lineTo(beginX, beginY + 1)
+					ctx.stroke()
+				})
+			}
+
+			//绘制title
+			function drawTitle(ctx) {
+				ctx.font = '20px Apple'
+				ctx.textAlign = 'center'
+				ctx.fillText('东京奥运会金牌Top5', 450, 50)
+			}
+			drawTitle(ctx)
+			const xhr = new XMLHttpRequest()
+			xhr.open('get', 'https://mracat.com/tools/2020东京奥运会/')
+			xhr.send(null)
+			xhr.onload = function () {
+				let originContent = JSON.parse(JSON.stringify(xhr.responseText))
+				let result = originContent.split('banomedals(')[1].split(')')[0]
+				let data = JSON.parse(result).data.medalsList.slice(0, 5)
+				console.log(data)
+				let labelArr = []
+				let valueArr = []
+				data.forEach((i) => {
+					labelArr.push(i.countryname)
+					valueArr.push(i.gold)
+				})
+				drawXAxisLabel(ctx, labelArr)
+				drawYAxisLabel(ctx, valueArr)
+				drawRect(ctx, valueArr)
+			}
+			// 金牌接口
+			// https://mracat.com/tools/2020东京奥运会/
+		</script>
+	</body>
+</html>
