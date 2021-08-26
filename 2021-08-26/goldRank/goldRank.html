@@ -86,7 +86,7 @@
 					const height = ((500 - 100 - 50) / (39 - 15)) * (i - 15)
 					let speed = 10
 					let beginHeight = 500
-					// 过渡  从下往上进行绘制
+					// 过渡  从下往上进行绘制，使用的直线绘制方式
 					let timeClear = ''
 					timeClear = setInterval(() => {
 						if (beginHeight > beginY) {
@@ -110,6 +110,7 @@
 						}
 					}, speed)
 					ctx.stroke()
+					// 添加🏅🌲放在柱状图上方
 					ctx.font = '16px Apple'
 					ctx.fillStyle = '#008c8c'
 					ctx.textAlign = 'center'
